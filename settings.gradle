@@ -8,3 +8,5 @@ dependencyResolutionManagement {
 }
 rootProject.name = "VF Task"
 include ':app'
+include ':data'
+include ':domain'
