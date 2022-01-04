@@ -7,4 +7,5 @@
     <string name="empty_view">No data to view</string>
     <string name="label_url">Url:</string>
     <string name="label_author">Author:</string>
+    <string name="common_error">Error occurred please try again</string>
 </resources>

@@ -26,11 +26,4 @@ object SharedWithAppModule {
         return ImageRepositoryImpl(imagesDataSource)
     }
 
-
-    @Provides
-    fun provideResource(
-        @ApplicationContext context: Context
-    ): Resources {
-        return context.resources
-    }
 }

@@ -1,18 +1,16 @@
 package com.example.vftask.features.imageDetails
 
-import android.content.Context
-import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
-import androidx.core.content.ContextCompat
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.palette.graphics.Palette
+import com.example.vftask.R
 import com.example.vftask.features.imageslist.ImageUIState
+import com.example.vftask.utils.resource.ResourceWrapper
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Target
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dagger.hilt.android.qualifiers.ApplicationContext
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -21,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class ImageDetailsViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val resources: Resources
+    private val resources: ResourceWrapper
 ) : ViewModel() {
 
 
@@ -46,7 +44,7 @@ class ImageDetailsViewModel @Inject constructor(
             } else {
                 _uiState.value = ImageDetailsUiState(
                     isError = true,
-                    errorMessage = "Error occurred please try again"
+                    errorMessage = resources.getString(R.string.common_error)
                 )
             }
         }
