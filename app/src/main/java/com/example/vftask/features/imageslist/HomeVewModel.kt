@@ -24,7 +24,7 @@ class HomeVewModel @Inject constructor(
 
     fun fetchImages() {
         viewModelScope.launch {
-            imagesRepository.getImagesList().collect { result ->
+            imagesRepository.loadFirst().collect { result ->
                 when (result) {
                     is Result.Success -> _uiState.value = HomeUIState(
                         images = result.data.map { model ->

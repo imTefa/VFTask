@@ -8,6 +8,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import okhttp3.ConnectionPool
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -19,12 +20,11 @@ import javax.inject.Singleton
 
 
 @Module
-@InstallIn(ViewModelComponent::class)
+@InstallIn(SingletonComponent::class)
 internal object NetworkModule {
 
-    const val BASE_URL = "https://picsum.photos/v2"
+    const val BASE_URL = "https://picsum.photos/v2/"
 
-    @Singleton
     @Provides
     fun provideHttpLoggingInterceptor(): HttpLoggingInterceptor {
         return HttpLoggingInterceptor().apply {
@@ -32,10 +32,8 @@ internal object NetworkModule {
         }
     }
 
-    @Singleton
     @Provides
     fun provideRetrofit(
-        @ApplicationContext context: Context,
         loggingInterceptor: HttpLoggingInterceptor
     ): Retrofit = Retrofit.Builder()
         .addConverterFactory(GsonConverterFactory.create(Gson()))
@@ -52,7 +50,6 @@ internal object NetworkModule {
                 .build()
         ).build()
 
-    @Singleton
     @Provides
-    fun provideApi(retrofit: Retrofit) = retrofit.create(Api::class.java)
+    fun provideApi(retrofit: Retrofit): Api = retrofit.create(Api::class.java)
 }

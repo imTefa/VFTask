@@ -9,13 +9,11 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
-import javax.inject.Inject
 
-internal class RemoteImagesDataSource @Inject constructor(
+internal class RemoteImagesDataSource(
     private val api: Api,
     private val ioDispatcher: CoroutineDispatcher
 ) : ImagesDataSource {
-
 
     override fun fetchImage(): Flow<Result<List<ImageModel>>> {
         return flow {
