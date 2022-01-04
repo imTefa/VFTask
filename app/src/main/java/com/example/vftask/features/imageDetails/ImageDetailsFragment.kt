@@ -1,5 +1,7 @@
 package com.example.vftask.features.imageDetails
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,7 +13,6 @@ import androidx.navigation.fragment.navArgs
 import com.example.vftask.R
 import com.example.vftask.databinding.FragmentImageDetailsBinding
 import com.example.vftask.features.BaseFragment
-import com.example.vftask.features.utils.loadImageFromUrl
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 
@@ -40,12 +41,25 @@ class ImageDetailsFragment : BaseFragment() {
         args.image.let {
             setupSupportActionBar(it.author)
 
-            binding.image.loadImageFromUrl(it.loadUrl)
-            binding.txtAuthor.text = it.author
+            with(binding) {
+                txtAuthor.text = it.author
+                txtUrl.text = it.openInLink
+                txtUrl.setOnClickListener {
+                    openUrl(txtUrl.text.toString())
+                }
+            }
         }
 
         viewModel.fetchImageDetails(args.image)
         observeState()
+    }
+
+    private fun openUrl(url: String) {
+        startActivity(
+            Intent(Intent.ACTION_VIEW).apply {
+                data = Uri.parse(url)
+            }
+        )
     }
 
     private fun observeState() {
@@ -69,7 +83,7 @@ class ImageDetailsFragment : BaseFragment() {
                                 paletteState.bodyTextColor?.let {
                                     txtAuthorLabel.setTextColor(it)
                                     txtAuthor.setTextColor(it)
-                                    txtUrl.setTextColor(it)
+                                    txtUrlLabel.setTextColor(it)
                                 }
 
                                 paletteState.titleTextColor?.let {

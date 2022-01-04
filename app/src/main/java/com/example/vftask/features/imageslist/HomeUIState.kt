@@ -1,7 +1,6 @@
 package com.example.vftask.features.imageslist
 
 import android.os.Parcelable
-import com.example.data.models.ImageModel
 import kotlinx.parcelize.Parcelize
 
 data class HomeUIState(
@@ -14,5 +13,6 @@ data class HomeUIState(
 @Parcelize
 data class ImageUIState(
     val author: String,
-    val loadUrl: String
-): Parcelable
+    val loadUrl: String,
+    val openInLink: String
+) : Parcelable

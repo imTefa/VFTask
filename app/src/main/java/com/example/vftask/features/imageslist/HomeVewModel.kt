@@ -30,7 +30,8 @@ class HomeVewModel @Inject constructor(
                         images = result.data.map { model ->
                             ImageUIState(
                                 author = model.author,
-                                loadUrl = model.loadUrl
+                                loadUrl = model.loadUrl,
+                                openInLink = model.openInLink
                             )
                         }
                     )
@@ -52,7 +53,8 @@ class HomeVewModel @Inject constructor(
                             images = _uiState.value.images + result.data.map { model ->
                                 ImageUIState(
                                     author = model.author,
-                                    loadUrl = model.loadUrl
+                                    loadUrl = model.loadUrl,
+                                    openInLink = model.openInLink
                                 )
                             }
                         )
@@ -60,7 +62,7 @@ class HomeVewModel @Inject constructor(
                             _uiState.value =
                                 HomeUIState(isError = true, errorMessage = result.error)
                         }
-                        is Result.Loading ->{
+                        is Result.Loading -> {
                             //TODO loading more should have different progress handler
                         }
                     }

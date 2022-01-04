@@ -1,6 +1,6 @@
 package com.example.data.models
 
- data class ImageApiModel(
+data class ImageApiModel(
     val id: String,
     val author: String,
     val width: Int,
@@ -10,5 +10,10 @@ package com.example.data.models
 )
 
 
- fun ImageApiModel.map(): ImageModel =
-    ImageModel(id = this.id, author = this.author, loadUrl = this.download_url)
+fun ImageApiModel.map(): ImageModel =
+    ImageModel(
+        id = this.id,
+        author = this.author,
+        loadUrl = this.download_url,
+        openInLink = this.url
+    )
