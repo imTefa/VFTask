@@ -9,4 +9,6 @@ interface ImagesRepository {
 
     fun loadFirst(offLine: Boolean = false): Flow<Result<List<ImageModel>>>
 
+    fun loadMore(): Flow<Result<List<ImageModel>>>
+
 }

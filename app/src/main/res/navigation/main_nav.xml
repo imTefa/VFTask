@@ -9,5 +9,20 @@
         android:id="@+id/imagesListFragment"
         android:name="com.example.vftask.features.imageslist.HomeFragment"
         android:label="fragment_images_list"
-        tools:layout="@layout/fragment_home" />
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_imagesListFragment_to_imageDetailsFragment"
+            app:destination="@id/imageDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/imageDetailsFragment"
+        android:name="com.example.vftask.features.imageDetails.ImageDetailsFragment"
+        android:label="fragment_image_details"
+        tools:layout="@layout/fragment_image_details">
+
+        <argument
+            android:name="image"
+            app:argType="com.example.vftask.features.imageslist.ImageUIState" />
+    </fragment>
 </navigation>

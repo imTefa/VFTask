@@ -9,11 +9,16 @@ internal class ImageRepositoryImpl(
     private val remoteImagesDataSource: ImagesDataSource
 ) : ImagesRepository {
 
+    //TODO we can use jetpack pagination lib
     private val limit = 10
     private var page = 1
 
-    //TODO keep in mind handling the pagination
     override fun loadFirst(offLine: Boolean): Flow<Result<List<ImageModel>>> {
         return remoteImagesDataSource.fetchImage(page, limit)
+    }
+
+    override fun loadMore(): Flow<Result<List<ImageModel>>> {
+        page+= 1
+        return remoteImagesDataSource.fetchImage(page,limit)
     }
 }

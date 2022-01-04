@@ -24,7 +24,7 @@ class HomeVewModel @Inject constructor(
 
     fun fetchImages() {
         viewModelScope.launch {
-            imagesRepository.loadFirst().collect { result ->
+            imagesRepository.loadFirst(hasInternetConnection()).collect { result ->
                 when (result) {
                     is Result.Success -> _uiState.value = HomeUIState(
                         images = result.data.map { model ->
@@ -41,6 +41,35 @@ class HomeVewModel @Inject constructor(
                 }
             }
         }
+    }
+
+    fun loadMore() {
+        if (hasInternetConnection())
+            viewModelScope.launch {
+                imagesRepository.loadMore().collect { result ->
+                    when (result) {
+                        is Result.Success -> _uiState.value = HomeUIState(
+                            images = _uiState.value.images + result.data.map { model ->
+                                ImageUIState(
+                                    author = model.author,
+                                    loadUrl = model.loadUrl
+                                )
+                            }
+                        )
+                        is Result.Error -> {
+                            _uiState.value =
+                                HomeUIState(isError = true, errorMessage = result.error)
+                        }
+                        is Result.Loading ->{
+                            //TODO loading more should have different progress handler
+                        }
+                    }
+                }
+            }
+    }
+
+    private fun hasInternetConnection(): Boolean {
+        return true
     }
 
 

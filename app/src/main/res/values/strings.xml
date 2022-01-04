@@ -5,4 +5,6 @@
     <string name="title_home_page">Home</string>
     <string name="btn_refresh">Refresh</string>
     <string name="empty_view">No data to view</string>
+    <string name="label_url">Url:</string>
+    <string name="label_author">Author:</string>
 </resources>

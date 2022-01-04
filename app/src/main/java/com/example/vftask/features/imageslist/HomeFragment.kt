@@ -7,14 +7,16 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.example.vftask.R
 import com.example.vftask.databinding.FragmentHomeBinding
 import com.example.vftask.features.BaseFragment
-import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
+
 
 @AndroidEntryPoint
 class HomeFragment : BaseFragment() {
@@ -38,15 +40,33 @@ class HomeFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         setupSupportActionBar(getString(R.string.title_home_page))
 
+        initRecyclerView()
 
-        adapter = ImagesAdapter(emptyList()){
+        viewModel.fetchImages()
 
+        observeData()
+    }
+
+    private fun initRecyclerView() {
+        adapter = ImagesAdapter(emptyList()) {
+            findNavController().navigate(
+                HomeFragmentDirections.actionImagesListFragmentToImageDetailsFragment(
+                    it
+                )
+            )
         }
         binding.list.adapter = adapter
 
-            viewModel.fetchImages()
+        binding.list.addOnScrollListener(object : RecyclerView.OnScrollListener() {
 
-        observeData()
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                super.onScrollStateChanged(recyclerView, newState)
+                if (!recyclerView.canScrollVertically(1)) {
+                    viewModel.loadMore()
+                }
+            }
+
+        })
     }
 
     private fun observeData() {
@@ -61,8 +81,9 @@ class HomeFragment : BaseFragment() {
             viewModel.uiState
                 .collect { state ->
                     when {
-                        state.isError -> showErrorMessage(state.errorMessage?:"")
-                        state.isLoading -> {}
+                        state.isError -> showErrorMessage(binding.root, state.errorMessage ?: "")
+                        state.isLoading -> {
+                        }
                         else -> {
                             adapter.update(state.images)
                             binding.emptyView.isVisible = state.images.isEmpty()
@@ -71,10 +92,6 @@ class HomeFragment : BaseFragment() {
                 }
         }
 
-
     }
 
-    private fun showErrorMessage(errorMessage: String) {
-        Snackbar.make(binding.root, errorMessage ?: "", Snackbar.LENGTH_LONG).show()
-    }
 }
