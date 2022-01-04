@@ -30,7 +30,7 @@ class HomeVewModel @Inject constructor(
                         images = result.data.map { model ->
                             ImageUIState(
                                 author = model.author,
-                                loadUrl = model.author
+                                loadUrl = model.loadUrl
                             )
                         }
                     )

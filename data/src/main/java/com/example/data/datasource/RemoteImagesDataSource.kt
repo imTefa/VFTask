@@ -15,10 +15,10 @@ internal class RemoteImagesDataSource(
     private val ioDispatcher: CoroutineDispatcher
 ) : ImagesDataSource {
 
-    override fun fetchImage(): Flow<Result<List<ImageModel>>> {
+    override fun fetchImage(page: Int, limit: Int): Flow<Result<List<ImageModel>>> {
         return flow {
             emit(Result.Loading())
-            emit(Result.Success(api.getImagesList().map { it.map() }))
+            emit(Result.Success(api.getImagesList(page,limit).map { it.map() }))
         }.flowOn(ioDispatcher)
             .catch { e ->
                 e.printStackTrace()

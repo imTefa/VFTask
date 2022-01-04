@@ -22,6 +22,8 @@ class HomeFragment : BaseFragment() {
     private lateinit var binding: FragmentHomeBinding
     private val viewModel by viewModels<HomeVewModel>()
 
+    private lateinit var adapter: ImagesAdapter
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -37,7 +39,12 @@ class HomeFragment : BaseFragment() {
         setupSupportActionBar(getString(R.string.title_home_page))
 
 
-        viewModel.fetchImages()
+        adapter = ImagesAdapter(emptyList()){
+
+        }
+        binding.list.adapter = adapter
+
+            viewModel.fetchImages()
 
         observeData()
     }
@@ -57,7 +64,8 @@ class HomeFragment : BaseFragment() {
                         state.isError -> showErrorMessage(state.errorMessage?:"")
                         state.isLoading -> {}
                         else -> {
-                            //TODO show the list
+                            adapter.update(state.images)
+                            binding.emptyView.isVisible = state.images.isEmpty()
                         }
                     }
                 }

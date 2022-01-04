@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
  interface ImagesDataSource {
 
-    fun fetchImage() : Flow<Result<List<ImageModel>>>
+    fun fetchImage(page: Int, limit: Int) : Flow<Result<List<ImageModel>>>
 }
