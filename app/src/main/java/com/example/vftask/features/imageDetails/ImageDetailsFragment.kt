@@ -1,10 +1,8 @@
 package com.example.vftask.features.imageDetails
 
 import android.content.Intent
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,11 +13,8 @@ import androidx.navigation.fragment.navArgs
 import com.example.vftask.R
 import com.example.vftask.databinding.FragmentImageDetailsBinding
 import com.example.vftask.features.BaseFragment
-import com.squareup.picasso.Picasso
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collect
-import java.io.File
-import java.io.FileOutputStream
 
 
 private const val TAG = "ImageDetailsFragment"
@@ -101,35 +96,5 @@ class ImageDetailsFragment : BaseFragment() {
             }
         }
     }
-
-
-  /*  private fun test(bitmap: Bitmap) {
-        val fileName: String = "my.png"
-        val file = File(requireContext().filesDir, fileName)
-        if (!file.exists())
-            file.createNewFile()
-        var fileOutPutStream: FileOutputStream? = null
-        try {
-            fileOutPutStream = FileOutputStream(file)
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fileOutPutStream)
-        } catch (e: Exception) {
-            e.printStackTrace()
-        } finally {
-            fileOutPutStream?.close()
-
-            show(fileName)
-        }
-    }
-
-    private fun show(fileName: String) {
-        val cacheFile = File(context?.filesDir, fileName)
-        Log.i(TAG, "show: ${cacheFile.absolutePath}")
-        Log.i(TAG, "show: ${cacheFile.path}")
-
-        val ffFile = File(cacheFile.absolutePath)
-
-        Picasso.get().load(ffFile).placeholder(R.drawable.ic_loading)
-            .into(binding.imageTest)
-    }*/
 
 }
