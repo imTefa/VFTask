@@ -22,7 +22,7 @@ import kotlinx.coroutines.flow.map
 class HomeFragment : BaseFragment() {
 
     private lateinit var binding: FragmentHomeBinding
-    private val viewModel by viewModels<HomeVewModel>()
+    private val viewModel by viewModels<HomeViewModel>()
 
     private lateinit var adapter: ImagesAdapter
 

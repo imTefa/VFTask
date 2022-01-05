@@ -3,6 +3,8 @@ package com.example.vftask.di
 import android.content.Context
 import com.example.vftask.utils.resource.ResourceWrapper
 import com.example.vftask.utils.resource.impl.ResourceWrapperImpl
+import com.example.vftask.utils.systemmanger.SystemManger
+import com.example.vftask.utils.systemmanger.SystemMangerImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -20,4 +22,9 @@ object CommonModule {
     ): ResourceWrapper {
         return ResourceWrapperImpl(context)
     }
+
+    @Provides
+    fun provideSystemManger(
+        @ApplicationContext context: Context
+    ): SystemManger = SystemMangerImpl(context)
 }

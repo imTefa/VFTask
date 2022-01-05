@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.models.Result
 import com.example.data.repositories.ImagesRepository
+import com.example.vftask.utils.systemmanger.SystemManger
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -14,9 +15,10 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeVewModel @Inject constructor(
+class HomeViewModel @Inject constructor(
     private val savedStateHandle: SavedStateHandle,
-    private val imagesRepository: ImagesRepository
+    private val imagesRepository: ImagesRepository,
+    private val systemManger: SystemManger
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(HomeUIState())
@@ -71,7 +73,7 @@ class HomeVewModel @Inject constructor(
     }
 
     private fun hasInternetConnection(): Boolean {
-        return true
+        return systemManger.isOnline()
     }
 
 
