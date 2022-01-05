@@ -67,6 +67,9 @@ class HomeFragment : BaseFragment() {
             }
 
         })
+
+
+        binding.btnRefresh.setOnClickListener { viewModel.fetchImages() }
     }
 
     private fun observeData() {
