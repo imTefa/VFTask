@@ -4,6 +4,7 @@ import com.example.data.datasource.ImagesDataSource
 import com.example.data.datasource.LocaleImageDataSource
 import com.example.data.datasource.LocaleImageDataSourceInterface
 import com.example.data.datasource.RemoteImagesDataSource
+import com.example.data.db.ImageDao
 import com.example.data.network.Api
 import dagger.Module
 import dagger.Provides
@@ -31,8 +32,9 @@ internal object DataModule {
     @Provides
     @Named(LOCALE_NAME)
     fun provideLocaleImageDataSource(
+        imageDao: ImageDao
     ): LocaleImageDataSourceInterface {
-        return LocaleImageDataSource(Dispatchers.IO)
+        return LocaleImageDataSource(imageDao, Dispatchers.IO)
     }
 
 }

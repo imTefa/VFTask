@@ -29,7 +29,7 @@ internal class ImageRepositoryImpl(
                     // as it would be better to save images locally and then load it from locale,
                     // but this need a complex solution to handle the load time as we deals with images, not just small data
                     if (it is Result.Success)
-                        localeDataSource.saveImages(page, it.data)
+                        localeDataSource.saveImages(it.data)
 
                     emit(it)
                 }
@@ -42,7 +42,7 @@ internal class ImageRepositoryImpl(
             remoteImagesDataSource.fetchImage(page, limit).collect {
 
                 if (page == 2 && it is Result.Success)
-                    localeDataSource.saveImages(page, it.data)
+                    localeDataSource.saveImages(it.data)
 
                 emit(it)
             }
