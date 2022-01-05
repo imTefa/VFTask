@@ -26,7 +26,7 @@ class HomeViewModel @Inject constructor(
 
     fun fetchImages() {
         viewModelScope.launch {
-            imagesRepository.loadFirst(hasInternetConnection()).collect { result ->
+            imagesRepository.loadFirst(!hasInternetConnection()).collect { result ->
                 when (result) {
                     is Result.Success -> _uiState.value = HomeUIState(
                         images = result.data.map { model ->
