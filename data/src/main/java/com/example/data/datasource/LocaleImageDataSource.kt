@@ -23,18 +23,21 @@ internal class LocaleImageDataSource(
 ) : LocaleImageDataSourceInterface {
 
 
-    override suspend fun saveImages(list: List<ImageModel>) {
+    override suspend fun saveImages(page: Int, list: List<ImageModel>) {
         withContext(ioDispatcher) {
-            try {
-                val mappedList = list.map { Mapper.imageModelToLocaleImage(it) }.toTypedArray()
-                imageDao.insertAll(*mappedList)
-                mappedList.forEach { runWorker(it) }
-            } catch (e: Exception) {
-                e.printStackTrace()
-                throw e
-            }
+            val count = imageDao.getRowCount()
+            if (count < page * 10)
+                try {
+                    val mappedList = list.map { Mapper.imageModelToLocaleImage(it) }.toTypedArray()
+                    imageDao.insertAll(*mappedList)
+                    mappedList.forEach { runWorker(it) }
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    throw e
+                }
         }
     }
+
 
     //When it's offline get all 20 image, no need for pagination
     override fun fetchImage(page: Int, limit: Int): Flow<Result<List<ImageModel>>> {

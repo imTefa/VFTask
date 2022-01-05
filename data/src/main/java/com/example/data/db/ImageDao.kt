@@ -15,4 +15,7 @@ internal interface ImageDao {
     fun insertAll(vararg images: LocalImage)
 
 
+    @Query("SELECT COUNT('id') FROM localimage")
+    fun getRowCount(): Int
+
 }
