@@ -9,15 +9,15 @@ import com.example.data.repositories.ImagesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
-@InstallIn(SingletonComponent::class)
+@InstallIn(ViewModelComponent::class)
 object SharedWithAppModule {
 
-    @Singleton
     @Provides
     fun provideImageRepository(
         @Named(REMOTE_NAME) remoteImagesDataSource: ImagesDataSource,
