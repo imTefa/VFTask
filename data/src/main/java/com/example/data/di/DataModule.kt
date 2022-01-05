@@ -1,5 +1,7 @@
 package com.example.data.di
 
+import android.content.Context
+import androidx.work.WorkManager
 import com.example.data.datasource.ImagesDataSource
 import com.example.data.datasource.LocaleImageDataSource
 import com.example.data.datasource.LocaleImageDataSourceInterface
@@ -9,6 +11,7 @@ import com.example.data.network.Api
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.Dispatchers
 import javax.inject.Named
@@ -32,9 +35,10 @@ internal object DataModule {
     @Provides
     @Named(LOCALE_NAME)
     fun provideLocaleImageDataSource(
-        imageDao: ImageDao
+        imageDao: ImageDao,
+        @ApplicationContext context: Context
     ): LocaleImageDataSourceInterface {
-        return LocaleImageDataSource(imageDao, Dispatchers.IO)
+        return LocaleImageDataSource(imageDao, Dispatchers.IO, WorkManager.getInstance(context))
     }
 
 }
