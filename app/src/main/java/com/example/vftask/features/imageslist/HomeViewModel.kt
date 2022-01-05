@@ -33,7 +33,8 @@ class HomeViewModel @Inject constructor(
                             ImageUIState(
                                 author = model.author,
                                 loadUrl = model.loadUrl,
-                                openInLink = model.openInLink
+                                openInLink = model.openInLink,
+                                isCached = model.isCached
                             )
                         }
                     )
@@ -56,7 +57,8 @@ class HomeViewModel @Inject constructor(
                                 ImageUIState(
                                     author = model.author,
                                     loadUrl = model.loadUrl,
-                                    openInLink = model.openInLink
+                                    openInLink = model.openInLink,
+                                    isCached = model.isCached
                                 )
                             }
                         )

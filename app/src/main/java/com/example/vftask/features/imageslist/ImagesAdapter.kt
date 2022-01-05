@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.vftask.R
 import com.example.vftask.databinding.ListItemImageBinding
 import com.example.vftask.features.utils.loadImageFromDrawable
+import com.example.vftask.features.utils.loadImageFromFilePath
 import com.example.vftask.features.utils.loadImageFromUrl
 
 class ImagesAdapter(
@@ -21,7 +22,11 @@ class ImagesAdapter(
         fun bind() {
             val imageUIState = list[adapterPosition]
             binding.txtAuthor.text = imageUIState.author
-            binding.image.loadImageFromUrl(imageUIState.loadUrl)
+
+            if (imageUIState.isCached)
+                binding.image.loadImageFromFilePath(imageUIState.loadUrl)
+            else
+                binding.image.loadImageFromUrl(imageUIState.loadUrl)
 
             if ((adapterPosition + 1) % 5 == 0) {
                 binding.adView.isVisible = true

@@ -14,8 +14,10 @@ internal interface ImageDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     fun insertAll(vararg images: LocalImage)
 
-
     @Query("SELECT COUNT('id') FROM localimage")
     fun getRowCount(): Int
+
+    @Query("UPDATE localimage SET cached = :cached, load_uri = :path WHERE id = :id")
+    fun updateImagePath(id: String, cached: Boolean = true, path: String)
 
 }

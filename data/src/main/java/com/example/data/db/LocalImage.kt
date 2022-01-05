@@ -10,4 +10,5 @@ internal data class LocalImage(
     @ColumnInfo(name = "author_name") val author: String,
     @ColumnInfo(name = "load_uri") val uri: String,
     @ColumnInfo(name = "open_link") val openUrl: String,
+    @ColumnInfo(name = "cached") val isCached: Boolean
 )

@@ -57,7 +57,6 @@ class ImageDetailsFragment : BaseFragment() {
 
         viewModel.fetchImageDetails(args.image)
         observeState()
-        show("my.png")
     }
 
     private fun openUrl(url: String) {
@@ -85,7 +84,6 @@ class ImageDetailsFragment : BaseFragment() {
                                 image.setImageBitmap(paletteState.bitmap)
                                 paletteState.backgroundColor?.let {
                                     container.setBackgroundColor(it)
-                                    //test(paletteState.bitmap)
                                 }
                                 paletteState.bodyTextColor?.let {
                                     txtAuthorLabel.setTextColor(it)
@@ -105,7 +103,7 @@ class ImageDetailsFragment : BaseFragment() {
     }
 
 
-    private fun test(bitmap: Bitmap) {
+  /*  private fun test(bitmap: Bitmap) {
         val fileName: String = "my.png"
         val file = File(requireContext().filesDir, fileName)
         if (!file.exists())
@@ -132,6 +130,6 @@ class ImageDetailsFragment : BaseFragment() {
 
         Picasso.get().load(ffFile).placeholder(R.drawable.ic_loading)
             .into(binding.imageTest)
-    }
+    }*/
 
 }

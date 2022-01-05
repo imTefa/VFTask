@@ -23,7 +23,9 @@ internal object DatabaseModule {
         return Room.databaseBuilder(
             context,
             ImagesDatabase::class.java, "images-database"
-        ).build()
+        )
+            .fallbackToDestructiveMigration()//not important to provide migration for now
+            .build()
     }
 
 

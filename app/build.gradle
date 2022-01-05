@@ -68,9 +68,6 @@ dependencies {
     api "com.google.dagger:hilt-android:2.38.1"
     kapt "com.google.dagger:hilt-compiler:2.38.1"
 
-    //Picasso
-    implementation 'com.squareup.picasso:picasso:2.71828'
-
     //Palette
     implementation 'androidx.palette:palette-ktx:1.0.0'
 

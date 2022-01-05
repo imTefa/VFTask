@@ -9,16 +9,18 @@ internal object Mapper {
             id = imageModel.id,
             author = imageModel.author,
             uri = imageModel.loadUrl, //we will save download url until we run a worker that get image and cache it.
-            openUrl = imageModel.openInLink
+            openUrl = imageModel.openInLink,
+            isCached = imageModel.isCached
         )
     }
 
-    fun localeImageToImageModel(localImage: LocalImage): ImageModel{
+    fun localeImageToImageModel(localImage: LocalImage): ImageModel {
         return ImageModel(
             id = localImage.id,
             author = localImage.author,
             loadUrl = localImage.uri,
-            openInLink = localImage.openUrl
+            openInLink = localImage.openUrl,
+            isCached = localImage.isCached
         )
     }
 
