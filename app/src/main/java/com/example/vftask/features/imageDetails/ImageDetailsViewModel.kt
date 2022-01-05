@@ -14,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,7 +28,10 @@ class ImageDetailsViewModel @Inject constructor(
     val uiState: StateFlow<ImageDetailsUiState> = _uiState.asStateFlow()
 
     fun fetchImageDetails(image: ImageUIState) {
-        Picasso.get().load(image.loadUrl).into(target)
+        if (image.isCached)
+            Picasso.get().load(File(image.loadUrl)).into(target)
+        else
+            Picasso.get().load(image.loadUrl).into(target)
     }
 
 
