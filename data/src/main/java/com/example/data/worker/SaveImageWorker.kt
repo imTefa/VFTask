@@ -58,14 +58,7 @@ internal class SaveImageWorker @AssistedInject constructor(
 
     private fun getImageFile(id: String): File {
         val fileName = "image${id}image.png"
-        Log.i(TAG, "getImageFile: ${context.filesDir.absolutePath}")
-        Log.i(TAG, "getImageFile: ${context.filesDir.exists()}")
         val file = File(context.filesDir, fileName)
-
-        Log.i(TAG, "getImageFile: ${file.absolutePath}")
-        Log.i(TAG, "getImageFile: ${file.exists()}")
-
-        file.parentFile?.mkdir()
         if (!file.exists())
             file.createNewFile()
 
